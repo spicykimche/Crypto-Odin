@@ -65,23 +65,19 @@ def calculate_fng_avg(values):
 
 def market_movers(tickers):
     print("#MARKET MOVERS\n")
-    index = 1
     for x in tickers:
-        format_ticker(index, x)
-        index+=1
+        format_ticker(x)
     print("")
 
 def market_losers(tickers):
     print("#MARKET LOSERS\n")
-    index = 1
     for x in tickers:
-        format_ticker(index, x)
-        index+=1
+        format_ticker(x)
     print("")
 
-def format_ticker(index, x):
+def format_ticker(x):
     percentage_movement = get_percentage_movement(x["quotes"]["USD"]["percentage_change_24h"])
-    print("{}. **{}** (**{}**) - **${}** (**{}**)".format(index, x["name"], x["symbol"], get_price(x["quotes"]["USD"]["price"]), percentage_movement))
+    print("- **{}** (**{}**) - **${} USD** (**{}**)".format(index, x["name"], x["symbol"], get_price(x["quotes"]["USD"]["price"]), percentage_movement))
     print("   - Market Cap: **${:,.2f} USD**".format(x["quotes"]["USD"]["market_cap"]))
     print("   - Volume 24h: **{:,}**".format(x["quotes"]["USD"]["volume_24h"]))
     print("   - Circulating Supply: **{:,}**".format(x["circulating_supply"]))
@@ -91,7 +87,7 @@ def format_ticker(index, x):
 def get_price(price):
     value = max('{:,.2f}'.format(price),'{:,.6f}'.format(price),key=len)
     value = value.rstrip("0")
-    if len(value.rsplit('.')[-1]) == 2:
+    if len(value.rsplit('.')[-1]) == 1:
         value = '{:,.2f}'.format(float(value))
     return value
 
