@@ -81,12 +81,19 @@ def market_losers(tickers):
 
 def format_ticker(index, x):
     percentage_movement = get_percentage_movement(x["quotes"]["USD"]["percentage_change_24h"])
-    print("{}. **{}** (**{}**) - **${:,.2f}** (**{}**)".format(index, x["name"], x["symbol"], x["quotes"]["USD"]["price"], percentage_movement))
+    print("{}. **{}** (**{}**) - **${}** (**{}**)".format(index, x["name"], x["symbol"], get_price(x["quotes"]["USD"]["price"]), percentage_movement))
     print("   - Market Cap: **${:,.2f} USD**".format(x["quotes"]["USD"]["market_cap"]))
     print("   - Volume 24h: **{:,}**".format(x["quotes"]["USD"]["volume_24h"]))
     print("   - Circulating Supply: **{:,}**".format(x["circulating_supply"]))
     print("   - Total Supply: **{:,}**".format(x["total_supply"]))
     print("   - Max Supply: **{:,}**".format(x["max_supply"]))
+
+def get_price(price):
+    value = max('{:,.2f}'.format(price),'{:,.6f}'.format(price),key=len)
+    value = value.rstrip("0")
+    if len(value.rsplit('.')[-1]) == 2:
+        value = '{:,.2f}'.format(float(value))
+    return value
 
 def get_percentage_movement(percentage):
     if int(percentage) > 0:
