@@ -63,21 +63,15 @@ def calculate_fng_avg(values):
         avg += int(x["value"])
     return avg / len(values)
 
-def market_movers(tickers):
-    print("#MARKET MOVERS\n")
+def print_tickers(header, tickers, p_range):
+    print("#{}\n".format(header))
     for x in tickers:
-        format_ticker(x)
+        format_ticker(x, p_range)
     print("")
 
-def market_losers(tickers):
-    print("#MARKET LOSERS\n")
-    for x in tickers:
-        format_ticker(x)
-    print("")
-
-def format_ticker(x):
-    percentage_movement = get_percentage_movement(x["quotes"]["USD"]["percentage_change_24h"])
-    print("- **{}** (**{}**) - **${} USD** (**{}**)".format(index, x["name"], x["symbol"], get_price(x["quotes"]["USD"]["price"]), percentage_movement))
+def format_ticker(x, p_range):
+    percentage_movement = get_percentage_movement(x["quotes"]["USD"][p_range])
+    print("- **{}** (**{}**) - **${} USD** (**{}**)".format(x["name"], x["symbol"], get_price(x["quotes"]["USD"]["price"]), percentage_movement))
     print("   - Market Cap: **${:,.2f} USD**".format(x["quotes"]["USD"]["market_cap"]))
     print("   - Volume 24h: **{:,}**".format(x["quotes"]["USD"]["volume_24h"]))
     print("   - Circulating Supply: **{:,}**".format(x["circulating_supply"]))
