@@ -8,4 +8,4 @@ Run "`. venv/bin/activate`" in the command line to activate the virtual python e
 - pip install beautifulsoup4
 
 ### How to Run
-Run "`python3 main.py`" in the command line from the root directory.
+Run "`python3 main.py | pbcopy`" in the command line from the root directory. This should automatically copy the output so it's easily pastable.

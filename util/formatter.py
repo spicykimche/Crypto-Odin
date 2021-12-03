@@ -25,11 +25,9 @@ def print_market_overview(market_info):
     print("- Total Market Cap: **${:,.2f} USD**".format(market_info["quotes"]["USD"]["total_market_cap"]))
     print("- Total Market Volume 24h: **{:,}**\n".format(market_info["quotes"]["USD"]["total_volume_24h"]))
 
-def print_crypto_news(bitcoin_data, eth_data, alt_data):
+def print_crypto_news(data):
     print("#CRYPTO NEWS\n")
-    print_news("BITCOIN", bitcoin_data)
-    print_news("ETHEREUM", eth_data)
-    print_news("ALTS", alt_data)
+    print_news("GENERAL", data)
 
 def print_news(header, data):
     print("##{}\n".format(header))
@@ -81,8 +79,8 @@ def format_ticker(x, p_range):
 def get_price(price):
     value = max('{:,.2f}'.format(price),'{:,.6f}'.format(price),key=len)
     value = value.rstrip("0")
-    if len(value.rsplit('.')[-1]) == 1:
-        value = '{:,.2f}'.format(float(value.strip(" ")))
+    if len(value.rsplit('.')[-1]) <= 1:
+        value = '{:,.2f}'.format(float(value.strip(" ").replace(",", "")))
     return value
 
 def get_percentage_movement(percentage):
